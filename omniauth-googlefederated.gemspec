@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Henry Liu"]
   s.email       = ["henry@liuhenry.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Google OAuth/OpenID Federated Login strategy for OmniAuth 1.0}
+  s.description = %q{Hybrid authentication and authorization strategy for Google APIs. Combines the process for obtaining an authorized OAuth request token along with an OpenID authentication request.}
 
   s.rubyforge_project = "omniauth-googlefederated"
 
