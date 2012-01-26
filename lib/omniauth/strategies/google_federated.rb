@@ -1,4 +1,5 @@
 require 'omniauth'
+require 'omniauth-openid'
 require 'rack/openid'
 require 'openid/extensions/sreg'
 require 'openid/extensions/ax'
@@ -25,7 +26,7 @@ module OmniAuth
       option :name, :google_federated
       option :required, [AX[:email], AX[:name], AX[:first_name], AX[:last_name], 'email', 'fullname']
       option :optional, [AX[:nickname], AX[:city], AX[:state], AX[:website], AX[:image], 'postcode', 'nickname']
-      option :store, OmniAuth::Strategies::OpenID::Store::Memory.new
+      option :store, OpenID::Store::Memory.new
       option :identifier, nil
       option :identifier_param, 'openid_url'
       option :consumer_key, nil
@@ -134,7 +135,7 @@ module OmniAuth
       end
 
       def sreg_user_info
-        sreg = OmniAuth::Strategies::OpenID::SReg::Response.from_success_response(openid_response)
+        sreg = OpenID::SReg::Response.from_success_response(openid_response)
         return {} unless sreg
         {
           'email' => sreg['email'],
@@ -145,7 +146,7 @@ module OmniAuth
       end
 
       def ax_user_info
-        ax = OmniAuth::Strategies::OpenID::AX::FetchResponse.from_success_response(openid_response)
+        ax = OpenID::AX::FetchResponse.from_success_response(openid_response)
         return {} unless ax
         {
           'email' => ax.get_single(AX[:email]),
