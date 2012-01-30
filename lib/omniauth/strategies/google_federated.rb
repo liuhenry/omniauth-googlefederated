@@ -42,7 +42,7 @@ module OmniAuth
         
         OmniAuth::Utils.deep_merge(super(), {
           'uid' => @openid_response.display_identifier,
-          'user_info' => user_info(@openid_response),
+          'user_info' => user_info,
           'credentials' => {
             'scope' => @options[:scope], 
             'token' => @access_token.token,
