@@ -20,3 +20,26 @@ In Ruby 1.9.2, there is a bug in the interpreter that causes a segfault when usi
 gem 'ruby-openid', :git => 'git://github.com/liuhenry/ruby-openid.git'
 ```
 Then run `bundle install`.
+
+## Usage ##
+
+For Devise, you need to configure `app/config/initializers/devise.rb`.
+
+```ruby
+config.omniauth :GoogleFederated, 
+                :store => OpenID::Store::Filesystem.new('/tmp'), 
+                :name => 'GoogleFederated', 
+                :identifier => 'https://www.google.com/accounts/o8/id', 
+                :consumer_key => GMAIL_KEY, 
+                :consumer_secret => GMAIL_SECRET, 
+                :scope => ["http(s)://www.google.com/calendar/feeds/", "https://www.google.com/m8/feeds/"], 
+                :require => 'omniauth-googlefederated', 
+                :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}
+```
+
+The returned information is accessible in the omniauth.auth hash: 
+
+```ruby
+data = request.env["omniauth.auth"].info # OpenID login information
+oauth = request.env["omniauth.auth"].credentials # OAuth credentials
+```
